@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyección Mensual - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.35);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.25);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --whatsapp: #22c55e;
+            --glass-inner: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            margin: 0;
+            padding: 16px 8px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            padding: 28px 24px;
+        }
+
+        @keyframes modalEntrance {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes shimmerProgress {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        h2 {
+            margin: 0 0 4px 0;
+            color: var(--text-main);
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bible-verse {
+            text-align: center;
+            color: #a5b4fc;
+            font-size: 0.82rem;
+            font-style: italic;
+            margin-bottom: 24px;
+            padding: 10px 14px;
+            line-height: 1.4;
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        /* Resumen Principal Glass */
+        .summary-card {
+            background: var(--glass-inner);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .summary-row.total {
+            border-top: 1px solid var(--card-border);
+            padding-top: 12px;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .btn-edit-sueldo {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: 6px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: var(--text-main);
+        }
+
+        .btn-edit-sueldo:hover {
+            background: var(--primary);
+        }
+
+        /* KPIs de Destino del Dinero */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--primary);
+        }
+
+        .kpi-card.kpi-success::before { background: var(--success); }
+        .kpi-card.kpi-warning::before { background: var(--warning); }
+
+        .kpi-title {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .kpi-value {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .kpi-sub {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Barra de Progreso Modernizada */
+        .progress-section {
+            background: var(--glass-inner);
+            border: 1px solid var(--card-border);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+        }
+
+        .progress-bar-bg {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            height: 12px;
+            overflow: hidden;
+            width: 100%;
+            padding: 2px;
+            border: 1px solid var(--card-border);
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #10b981, #34d399, #10b981);
+            background-size: 200% 100%;
+            animation: shimmerProgress 3s linear infinite;
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px var(--success-glow);
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 24px 0 12px 0;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        /* Listas de Ítems */
+        .item-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 12px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--card-border);
+            gap: 8px;
+        }
+
+        .item:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(15, 23, 42, 0.75);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .item.dragging {
+            opacity: 0.3;
+        }
+
+        .drag-handle {
+            cursor: grab;
+            color: #475569;
+            font-size: 1rem;
+            padding: 0 2px;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .item:hover .drag-handle {
+            color: var(--text-muted);
+        }
+
+        .order-btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .btn-move {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.6rem;
+            padding: 0;
+            color: #64748b;
+            line-height: 1;
+        }
+
+        .btn-move:hover {
+            color: var(--primary);
+        }
+
+        .item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--success);
+            flex-shrink: 0;
+            border-radius: 6px;
+        }
+
+        .input-inline-name {
+            border: 1px solid transparent;
+            background: transparent;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            width: 100%;
+            padding: 4px 6px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .input-inline-name:focus {
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .item.paid .input-inline-name {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .item-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-inline-amount {
+            border: 1px solid transparent;
+            background: transparent;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            width: 105px;
+            text-align: right;
+            padding: 4px 6px;
+            border-radius: 6px;
+        }
+
+        .input-inline-amount:focus {
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .item.paid .input-inline-amount {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .btn-delete-item {
+            background: rgba(239, 68, 68, 0.1);
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-delete-item:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .extra-total-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.08);
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            border: 1px dashed rgba(16, 185, 129, 0.3);
+        }
+
+        /* Botones Principales */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 16px;
+            margin-top: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: none;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            box-shadow: 0 6px 20px var(--primary-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            border: 1px solid var(--card-border);
+            padding: 24px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+            animation: modalEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: white;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .dynamic-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .dynamic-item input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: white;
+            padding: 8px;
+        }
+
+        /* Historial */
+        .history-section {
+            margin-top: 32px;
+            border-top: 1px solid var(--card-border);
+            padding-top: 24px;
+        }
+
+        .history-section h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+
+        .history-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .history-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            margin-bottom: 8px;
+            padding-right: 25px;
+            font-size: 0.95rem;
+        }
+
+        .btn-delete-history {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            opacity: 0.5;
+        }
+
+        .btn-delete-history:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Proyección Mensual</h2>
+    <p id="bible-verse" class="bible-verse">Cargando reflejo de fe...</p>
+
+    <!-- Resumen General -->
+    <div class="summary-card">
+        <div class="summary-row">
+            <span>Sueldo Base:</span>
+            <div>
+                <strong id="display-sueldo" style="color: #a5b4fc;">$ 0</strong>
+                <button class="btn-edit-sueldo" onclick="editSueldoDirect()" title="Editar Sueldo Base">✏️</button>
+            </div>
+        </div>
+        <div class="summary-row">
+            <span>Gastos Totales:</span>
+            <span id="display-gastos" style="color: #fca5a5;">$ 0</span>
+        </div>
+        <div class="summary-row total">
+            <span>Saldo Disponible Libre:</span>
+            <span id="display-saldo" style="color: var(--success);">$ 0 💰</span>
+        </div>
+    </div>
+
+    <!-- KPIs de Destino del Dinero -->
+    <div class="kpi-grid">
+        <div class="kpi-card kpi-warning">
+            <div class="kpi-title">Comprometido</div>
+            <div class="kpi-value" id="kpi-sueldo-pct">0%</div>
+            <div class="kpi-sub">del Sueldo Base</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Gasto Mayor</div>
+            <div class="kpi-value" id="kpi-top-expense-name">-</div>
+            <div class="kpi-sub" id="kpi-top-expense-val">$ 0</div>
+        </div>
+        <div class="kpi-card kpi-success">
+            <div class="kpi-title">Cobertura Extras</div>
+            <div class="kpi-value" id="kpi-extras-coverage">0%</div>
+            <div class="kpi-sub">de tus Gastos</div>
+        </div>
+    </div>
+
+    <!-- Barra de Progreso -->
+    <div class="progress-section">
+        <div class="progress-header">
+            <span>Progreso de Pagos</span>
+            <span id="progress-percent" style="color: var(--success);">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
+            <span>Pagado: <strong id="paid-amount" style="color: var(--success);">$ 0</strong></span>
+            <span>Resta pagar: <strong id="remaining-amount" style="color: #fca5a5;">$ 0</strong></span>
+        </div>
+    </div>
+
+    <!-- Ingresos Extra -->
+    <div class="section-title">💵 Registro Auxiliar de Ingresos Extras</div>
+    <ul class="item-list" id="extra-list"></ul>
+    
+    <div class="extra-total-box">
+        <span>Total Ingresos Extras Registrados:</span>
+        <span id="aux-total-extras" style="color: var(--success);">+ $ 0</span>
+    </div>
+    
+    <button class="btn btn-secondary" onclick="addNewExtraDirect()" style="margin-bottom: 24px;">+ Añadir ingreso extra</button>
+
+    <!-- NUEVO CUADRO: Plata que me deben -->
+    <div class="section-title">🤝 Plata que me deben</div>
+    <ul class="item-list" id="debt-list"></ul>
+
+    <div class="extra-total-box" style="background: rgba(245, 158, 11, 0.08); border: 1px dashed rgba(245, 158, 11, 0.3);">
+        <span>Total Pendiente por Cobrar:</span>
+        <span id="aux-total-debts" style="color: var(--warning);">+ $ 0</span>
+    </div>
+
+    <button class="btn btn-secondary" onclick="addNewDebtDirect()" style="margin-bottom: 24px;">+ Añadir deuda a cobrar</button>
+
+    <!-- NUEVO CUADRO: Cosas para pagar después -->
+    <div class="section-title">⏳ Cosas para pagar después</div>
+    <ul class="item-list" id="pending-pay-list"></ul>
+
+    <div class="extra-total-box" style="background: rgba(99, 102, 241, 0.08); border: 1px dashed rgba(99, 102, 241, 0.3);">
+        <span>Total Pendiente de Pago Posterior:</span>
+        <span id="aux-total-pending-pay" style="color: #a5b4fc;">$ 0</span>
+    </div>
+
+    <button class="btn btn-secondary" onclick="addNewPendingPayDirect()" style="margin-bottom: 24px;">+ Añadir cosa para pagar después</button>
+
+    <!-- Lista de Gastos -->
+    <div class="section-title">📉 Gastos Mensuales</div>
+    <ul class="item-list" id="expense-list"></ul>
+    <button class="btn btn-secondary" onclick="addNewExpenseDirect()">+ Añadir nuevo gasto</button>
+
+    <!-- Botones de Acción Principal -->
+    <div style="margin-top: 20px;">
+        <button class="btn btn-whatsapp" onclick="sendWhatsAppSummary()">📲 Compartir por WhatsApp</button>
+        <button class="btn btn-primary" onclick="openNewMonthModal()">Cerrar Mes e Iniciar Nuevo</button>
+        <button class="btn btn-secondary" onclick="undoLastMonthClose()" style="margin-top: 8px;">↩ Deshacer Último Cierre de Mes</button>
+    </div>
+
+    <!-- Historial de Meses -->
+    <div class="history-section">
+        <h3>Historial de Meses Anteriores</h3>
+        <div id="history-list">
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Sin historial registrado aún.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Registrar Nuevo Mes -->
+<div class="modal" id="monthModal">
+    <div class="modal-content">
+        <h3>Iniciar Nuevo Mes</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">El mes actual se archivará automáticamente en el historial.</p>
+        
+        <div class="form-group">
+            <label for="input-month-name">Nombre del Mes / Período:</label>
+            <input type="text" id="input-month-name" placeholder="Ej: Septiembre 2026">
+        </div>
+        <div class="form-group">
+            <label for="input-sueldo">Sueldo Base ($):</label>
+            <input type="text" id="input-sueldo" placeholder="$ 794.594" oninput="formatModalInput(this)">
+        </div>
+
+        <h4 style="font-size: 0.9rem; margin: 16px 0 8px 0;">Gastos del Mes</h4>
+        <div id="dynamic-expenses"></div>
+        <button type="button" class="btn btn-secondary" onclick="addExpenseInputModal()" style="margin-bottom: 16px; padding: 8px;">+ Agregar Campo Gasto</button>
+
+        <button class="btn class btn-primary" onclick="saveNewMonth()">Guardar e Iniciar</button>
+        <button class="btn btn-danger" onclick="closeModal()" style="margin-top: 8px;">Cancelar</button>
+    </div>
+</div>
+
+<script>
+    const bibleVerses = [
+        "«Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquezas en gloria en Cristo Jesús.» — Filipenses 4:19",
+        "«El alma generosa será prosperada; y el que saciare, él también será saciado.» — Proverbios 11:25",
+        "«Pon asimismo tu delicia en el Señor, y él te concederá las peticiones de tu corazón.» — Salmos 37:4",
+        "«Traed todos los diezmos al alfolí y haya alimento en mi casa; y probadme ahora en esto...» — Malaquías 3:10",
+        "«Porque yo sé los pensamientos que tengo acerca de vosotros, dice el Señor, pensamientos de paz, y no de mal.» — Jeremías 29:11",
+        "«Encomienda al Señor tu camino, y confía en él; y él hará.» — Salmos 37:5",
+        "«Bendito el varón que confía en el Señor, y cuya confianza es el Señor.» — Jeremías 17:7"
+    ];
+
+    const initialData = {
+        monthName: "Agosto 2026",
+        baseSueldo: 794594,
+        extras: [
+            { name: "3 Guardias extras", amount: 75683 },
+            { name: "Administracion - Manuel", amount: 40000 }
+        ],
+        debts: [
+            { name: "Ejemplo: Juan (Préstamo)", amount: 15000, paid: false }
+        ],
+        pendingPays: [
+            { name: "Ejemplo: Compra futura", amount: 20000, paid: false }
+        ],
+        expenses: [
+            { name: "Diezmo", amount: 79459, paid: false },
+            { name: "Alquiler", amount: 280000, paid: false },
+            { name: "Mamá", amount: 146206, paid: false },
+            { name: "Credicuotas", amount: 144173, paid: false },
+            { name: "Mercado crédito - completo", amount: 54216, paid: false },
+            { name: "Servicios", amount: 60000, paid: false },
+            { name: "Pack de internet", amount: 2500, paid: false }
+        ]
+    };
+
+    let currentMonth = JSON.parse(localStorage.getItem('currentMonthData')) || initialData;
+    let historyData = JSON.parse(localStorage.getItem('historyData')) || [];
+    let lastMonthBackup = JSON.parse(localStorage.getItem('lastMonthBackup')) || null;
+
+    function formatNumberWithDots(val) {
+        if (val === null || val === undefined || val === '') return '$ 0';
+        const clean = String(val).replace(/\D/g, '');
+        if (!clean) return '$ 0';
+        return '$ ' + Number(clean).toLocaleString('es-AR');
+    }
+
+    function parseDotsToNumber(valStr) {
+        if (!valStr) return 0;
+        const clean = String(valStr).replace(/\$/g, '').replace(/\./g, '').replace(/\D/g, '');
+        return Number(clean) || 0;
+    }
+
+    function sanitizeCurrentMonth() {
+        if (currentMonth.sueldo !== undefined && currentMonth.baseSueldo === undefined) {
+            currentMonth.baseSueldo = Number(currentMonth.sueldo) || 0;
+        }
+        currentMonth.baseSueldo = Number(currentMonth.baseSueldo) || 0;
+        if (!Array.isArray(currentMonth.extras)) currentMonth.extras = [];
+        if (!Array.isArray(currentMonth.debts)) currentMonth.debts = [];
+        if (!Array.isArray(currentMonth.pendingPays)) currentMonth.pendingPays = [];
+        if (!Array.isArray(currentMonth.expenses)) currentMonth.expenses = [];
+        
+        currentMonth.extras.forEach(item => item.amount = Number(item.amount) || 0);
+        currentMonth.debts.forEach(item => item.amount = Number(item.amount) || 0);
+        currentMonth.pendingPays.forEach(item => item.amount = Number(item.amount) || 0);
+        currentMonth.expenses.forEach(item => item.amount = Number(item.amount) || 0);
+    }
+
+    function displayRandomVerse() {
+        const randomIndex = Math.floor(Math.random() * bibleVerses.length);
+        document.getElementById('bible-verse').innerText = bibleVerses[randomIndex];
+    }
+
+    function formatCurrency(amount) {
+        return '$ ' + Number(amount).toLocaleString('es-AR');
+    }
+
+    function renderCurrentMonth() {
+        sanitizeCurrentMonth();
+
+        // Render Extras
+        const extraContainer = document.getElementById('extra-list');
+        extraContainer.innerHTML = '';
+        currentMonth.extras.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = 'item';
+            li.innerHTML = `
+                <div class="item-left">
+                    <span style="font-size: 0.9rem;">💵</span>
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateExtraName(${index}, this.value)" placeholder="Ej: Guardia extra">
+                </div>
+                <div class="item-right">
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateExtraAmount(${index}, this)" placeholder="$ 0">
+                    <button class="btn-delete-item" onclick="deleteExtraDirect(${index})" title="Eliminar ingreso">✕</button>
+                </div>
+            `;
+            extraContainer.appendChild(li);
+        });
+
+        // Render Deudas (Plata que me deben)
+        const debtContainer = document.getElementById('debt-list');
+        debtContainer.innerHTML = '';
+        currentMonth.debts.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = `item ${item.paid ? 'paid' : ''}`;
+            li.innerHTML = `
+                <div class="item-left">
+                    <input type="checkbox" id="debt-${index}" ${item.paid ? 'checked' : ''} onchange="toggleDebt(${index})" title="Marcar como cobrado / tachar">
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateDebtName(${index}, this.value)" placeholder="¿Quién te debe?">
+                </div>
+                <div class="item-right">
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateDebtAmount(${index}, this)" placeholder="$ 0">
+                    <button class="btn-delete-item" onclick="deleteDebtDirect(${index})" title="Eliminar registro">✕</button>
+                </div>
+            `;
+            debtContainer.appendChild(li);
+        });
+
+        // Render Cosas para pagar después
+        const pendingPayContainer = document.getElementById('pending-pay-list');
+        pendingPayContainer.innerHTML = '';
+        currentMonth.pendingPays.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = `item ${item.paid ? 'paid' : ''}`;
+            li.innerHTML = `
+                <div class="item-left">
+                    <input type="checkbox" id="pendingPay-${index}" ${item.paid ? 'checked' : ''} onchange="togglePendingPay(${index})" title="Marcar como pagado / tachar">
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updatePendingPayName(${index}, this.value)" placeholder="¿Qué debes pagar después?">
+                </div>
+                <div class="item-right">
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updatePendingPayAmount(${index}, this)" placeholder="$ 0">
+                    <button class="btn-delete-item" onclick="deletePendingPayDirect(${index})" title="Eliminar registro">✕</button>
+                </div>
+            `;
+            pendingPayContainer.appendChild(li);
+        });
+
+        // Render Gastos
+        const listContainer = document.getElementById('expense-list');
+        listContainer.innerHTML = '';
+        currentMonth.expenses.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = `item ${item.paid ? 'paid' : ''}`;
+            li.draggable = true;
+            li.dataset.index = index;
+
+            li.innerHTML = `
+                <div class="item-left">
+                    <span class="drag-handle" title="Arrastrar para mover">⋮⋮</span>
+                    <div class="order-btn-container">
+                        <button class="btn-move" onclick="moveExpense(${index}, -1)" title="Mover arriba">▲</button>
+                        <button class="btn-move" onclick="moveExpense(${index}, 1)" title="Mover abajo">▼</button>
+                    </div>
+                    <input type="checkbox" id="item-${index}" ${item.paid ? 'checked' : ''} onchange="toggleItem(${index})">
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateItemName(${index}, this.value)" placeholder="Nombre del gasto">
+                </div>
+                <div class="item-right">
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateItemAmount(${index}, this)" placeholder="$ 0">
+                    <button class="btn-delete-item" onclick="deleteExpenseDirect(${index})" title="Eliminar gasto">✕</button>
+                </div>
+            `;
+
+            li.addEventListener('dragstart', handleDragStart);
+            li.addEventListener('dragover', handleDragOver);
+            li.addEventListener('drop', handleDrop);
+            li.addEventListener('dragend', handleDragEnd);
+
+            listContainer.appendChild(li);
+        });
+
+        calculateTotals();
+    }
+
+    let draggedIndex = null;
+
+    function handleDragStart(e) {
+        draggedIndex = Number(this.dataset.index);
+        this.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDrop(e) {
+        e.stopPropagation();
+        const targetIndex = Number(this.dataset.index);
+        if (draggedIndex !== null && draggedIndex !== targetIndex) {
+            const movedItem = currentMonth.expenses.splice(draggedIndex, 1)[0];
+            currentMonth.expenses.splice(targetIndex, 0, movedItem);
+            renderCurrentMonth();
+        }
+        return false;
+    }
+
+    function handleDragEnd() {
+        this.classList.remove('dragging');
+        draggedIndex = null;
+    }
+
+    function moveExpense(index, direction) {
+        const newIndex = index + direction;
+        if (newIndex >= 0 && newIndex < currentMonth.expenses.length) {
+            const temp = currentMonth.expenses[index];
+            currentMonth.expenses[index] = currentMonth.expenses[newIndex];
+            currentMonth.expenses[newIndex] = temp;
+            renderCurrentMonth();
+        }
+    }
+
+    function calculateTotals() {
+        const totalExtras = currentMonth.extras.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+        const totalDebts = currentMonth.debts.reduce((acc, curr) => !curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
+        const totalPendingPay = currentMonth.pendingPays.reduce((acc, curr) => !curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
+
+        const totalGastos = currentMonth.expenses.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+        const totalPagado = currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
+        
+        const saldoDisponible = currentMonth.baseSueldo - totalGastos;
+        const restaPagar = totalGastos - totalPagado;
+        const porcentaje = totalGastos > 0 ? Math.round((totalPagado / totalGastos) * 100) : 0;
+
+        document.getElementById('display-sueldo').innerText = formatCurrency(currentMonth.baseSueldo);
+        document.getElementById('display-gastos').innerText = formatCurrency(totalGastos);
+        document.getElementById('display-saldo').innerText = formatCurrency(saldoDisponible) + ' 💰';
+
+        document.getElementById('aux-total-extras').innerText = '+ ' + formatCurrency(totalExtras);
+        document.getElementById('aux-total-debts').innerText = '+ ' + formatCurrency(totalDebts);
+        document.getElementById('aux-total-pending-pay').innerText = formatCurrency(totalPendingPay);
+
+        document.getElementById('progress-fill').style.width = porcentaje + '%';
+        document.getElementById('progress-percent').innerText = porcentaje + '%';
+        document.getElementById('paid-amount').innerText = formatCurrency(totalPagado);
+        document.getElementById('remaining-amount').innerText = formatCurrency(restaPagar);
+
+        const sueldoPct = currentMonth.baseSueldo > 0 ? Math.round((totalGastos / currentMonth.baseSueldo) * 100) : 0;
+        document.getElementById('kpi-sueldo-pct').innerText = sueldoPct + '%';
+
+        let topExpense = { name: '-', amount: 0 };
+        currentMonth.expenses.forEach(e => {
+            if ((Number(e.amount) || 0) > topExpense.amount) {
+                topExpense = { name: e.name, amount: Number(e.amount) || 0 };
+            }
+        });
+        document.getElementById('kpi-top-expense-name').innerText = topExpense.name || '-';
+        document.getElementById('kpi-top-expense-val').innerText = formatCurrency(topExpense.amount);
+
+        const extrasCoverage = totalGastos > 0 ? Math.round((totalExtras / totalGastos) * 100) : 0;
+        document.getElementById('kpi-extras-coverage').innerText = extrasCoverage + '%';
+
+        saveToLocalStorage();
+    }
+
+    function addNewExtraDirect() {
+        currentMonth.extras.push({ name: "Nuevo ingreso extra", amount: 0 });
+        renderCurrentMonth();
+    }
+
+    function updateExtraName(index, newName) {
+        currentMonth.extras[index].name = newName;
+        saveToLocalStorage();
+    }
+
+    function updateExtraAmount(index, inputElement) {
+        const rawValue = parseDotsToNumber(inputElement.value);
+        inputElement.value = formatNumberWithDots(rawValue);
+        currentMonth.extras[index].amount = rawValue;
+        calculateTotals();
+    }
+
+    function deleteExtraDirect(index) {
+        currentMonth.extras.splice(index, 1);
+        renderCurrentMonth();
+    }
+
+    function addNewDebtDirect() {
+        currentMonth.debts.push({ name: "Nueva deuda a cobrar", amount: 0, paid: false });
+        renderCurrentMonth();
+    }
+
+    function updateDebtName(index, newName) {
+        currentMonth.debts[index].name = newName;
+        saveToLocalStorage();
+    }
+
+    function updateDebtAmount(index, inputElement) {
+        const rawValue = parseDotsToNumber(inputElement.value);
+        inputElement.value = formatNumberWithDots(rawValue);
+        currentMonth.debts[index].amount = rawValue;
+        calculateTotals();
+    }
+
+    function toggleDebt(index) {
+        currentMonth.debts[index].paid = !currentMonth.debts[index].paid;
+        const debtElement = document.getElementById(`debt-${index}`).closest('.item');
+        if (currentMonth.debts[index].paid) {
+            debtElement.classList.add('paid');
+        } else {
+            debtElement.classList.remove('paid');
+        }
+        calculateTotals();
+    }
+
+    function deleteDebtDirect(index) {
+        currentMonth.debts.splice(index, 1);
+        renderCurrentMonth();
+    }
+
+    function addNewPendingPayDirect() {
+        currentMonth.pendingPays.push({ name: "Nueva cosa para pagar", amount: 0, paid: false });
+        renderCurrentMonth();
+    }
+
+    function updatePendingPayName(index, newName) {
+        currentMonth.pendingPays[index].name = newName;
+        saveToLocalStorage();
+    }
+
+    function updatePendingPayAmount(index, inputElement) {
+        const rawValue = parseDotsToNumber(inputElement.value);
+        inputElement.value = formatNumberWithDots(rawValue);
+        currentMonth.pendingPays[index].amount = rawValue;
+        calculateTotals();
+    }
+
+    function togglePendingPay(index) {
+        currentMonth.pendingPays[index].paid = !currentMonth.pendingPays[index].paid;
+        const pendingPayElement = document.getElementById(`pendingPay-${index}`).closest('.item');
+        if (currentMonth.pendingPays[index].paid) {
+            pendingPayElement.classList.add('paid');
+        } else {
+            pendingPayElement.classList.remove('paid');
+        }
+        calculateTotals();
+    }
+
+    function deletePendingPayDirect(index) {
+        currentMonth.pendingPays.splice(index, 1);
+        renderCurrentMonth();
+    }
+
+    function updateItemName(index, newName) {
+        currentMonth.expenses[index].name = newName;
+        saveToLocalStorage();
+    }
+
+    function updateItemAmount(index, inputElement) {
+        const rawValue = parseDotsToNumber(inputElement.value);
+        inputElement.value = formatNumberWithDots(rawValue);
+        currentMonth.expenses[index].amount = rawValue;
+        calculateTotals();
+    }
+
+    function editSueldoDirect() {
+        const currentVal = formatNumberWithDots(currentMonth.baseSueldo);
+        const newValStr = prompt("Ingresa el sueldo base inicial ($):", currentVal);
+        
+        if (newValStr !== null) {
+            const newVal = parseDotsToNumber(newValStr);
+            currentMonth.baseSueldo = newVal;
+            calculateTotals();
+        }
+    }
+
+    function toggleItem(index) {
+        currentMonth.expenses[index].paid = !currentMonth.expenses[index].paid;
+        const itemElement = document.getElementById(`item-${index}`).closest('.item');
+        if (currentMonth.expenses[index].paid) {
+            itemElement.classList.add('paid');
+        } else {
+            itemElement.classList.remove('paid');
+        }
+        calculateTotals();
+    }
+
+    function addNewExpenseDirect() {
+        currentMonth.expenses.push({ name: "Nuevo Gasto", amount: 0, paid: false });
+        renderCurrentMonth();
+    }
+
+    function deleteExpenseDirect(index) {
+        currentMonth.expenses.splice(index, 1);
+        renderCurrentMonth();
+    }
+
+    function sendWhatsAppSummary() {
+        const totalExtras = currentMonth.extras.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
+        const totalDebts = currentMonth.debts.reduce((acc, curr) => !curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
+        const totalPendingPay = currentMonth.pendingPays.reduce((acc, curr) => !curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
+        const totalGastos = currentMonth.expenses.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
+        const totalPagado = currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
+        const restaPagar = totalGastos - totalPagado;
+        const saldoLibre = currentMonth.baseSueldo - totalGastos;
+        const porcentaje = totalGastos > 0 ? Math.round((totalPagado / totalGastos) * 100) : 0;
+
+        let message = `📊 *PROYECCIÓN MENSUAL - ${(currentMonth.monthName || 'MES').toUpperCase()}*\n\n`;
+        message += `💵 *Sueldo Base:* ${formatCurrency(currentMonth.baseSueldo)}\n`;
+        message += `📉 *Gastos Totales:* ${formatCurrency(totalGastos)}\n`;
+        message += `💰 *Saldo Libre:* ${formatCurrency(saldoLibre)}\n\n`;
+        message += `📈 *Progreso de Pagos:* ${porcentaje}%\n`;
+        message += `✅ *Pagado:* ${formatCurrency(totalPagado)}\n`;
+        message += `⏳ *Resta Pagar:* ${formatCurrency(restaPagar)}\n\n`;
+
+        if (currentMonth.extras.length > 0) {
+            message += `*Registro Auxiliar de Ingresos Extras (${formatCurrency(totalExtras)}):*\n`;
+            currentMonth.extras.forEach(e => {
+                message += `💵 ${e.name}: ${formatCurrency(e.amount)}\n`;
+            });
+            message += `\n`;
+        }
+
+        if (currentMonth.debts.length > 0) {
+            message += `*Plata que me deben (Pendiente: ${formatCurrency(totalDebts)}):*\n`;
+            currentMonth.debts.forEach(d => {
+                const estado = d.paid ? "✅ (Cobrado)" : "⏳ (Pendiente)";
+                message += `${estado} ${d.name}: ${formatCurrency(d.amount)}\n`;
+            });
+            message += `\n`;
+        }
+
+        if (currentMonth.pendingPays.length > 0) {
+            message += `*Cosas para pagar después (Pendiente: ${formatCurrency(totalPendingPay)}):*\n`;
+            currentMonth.pendingPays.forEach(p => {
+                const estado = p.paid ? "✅ (Pagado)" : "⏳ (Pendiente)";
+                message += `${estado} ${p.name}: ${formatCurrency(p.amount)}\n`;
+            });
+            message += `\n`;
+        }
+
+        message += `*Detalle de Gastos:*\n`;
+        currentMonth.expenses.forEach(e => {
+            const estado = e.paid ? "✅" : "❌";
+            message += `${estado} ${e.name}: ${formatCurrency(e.amount)}\n`;
+        });
+
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
+    }
+
+    function renderHistory() {
+        const historyContainer = document.getElementById('history-list');
+        if (historyData.length === 0) {
+            historyContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Sin historial registrado aún.</p>';
+            return;
+        }
+
+        historyContainer.innerHTML = '';
+        historyData.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'history-card';
+            const baseSueldoVal = item.baseSueldo || item.sueldo || 0;
+            const sobranteVal = baseSueldoVal - (item.totalPagado || item.totalGastos);
+
+            div.innerHTML = `
+                <button class="btn-delete-history" onclick="deleteHistoryItem(${index})" title="Eliminar registro del historial">🗑️</button>
+                <div class="history-header">
+                    <span>${item.monthName}</span>
+                    <span style="color: var(--success);">${item.percentage}% pagado</span>
+                </div>
+                <div style="margin-bottom: 4px; color: var(--text-muted);">
+                    Sueldo Base: <strong style="color: white;">${formatCurrency(baseSueldoVal)}</strong> | Gastos: <strong style="color: white;">${formatCurrency(item.totalGastos)}</strong>
+                </div>
+                <div style="margin-bottom: 6px; color: var(--text-muted);">
+                    Ingresos Extras Auxiliares: <strong style="color: var(--success);">+ ${formatCurrency(item.totalExtras || 0)}</strong>
+                </div>
+                <div style="border-top: 1px dashed var(--card-border); padding-top: 6px; color: var(--success); font-weight: 600;">
+                    Sobrante Sueldo Base: <span>${formatCurrency(sobranteVal)} 💰</span>
+                </div>
+            `;
+            historyContainer.appendChild(div);
+        });
+    }
+
+    function deleteHistoryItem(index) {
+        if (confirm(`¿Deseas eliminar el registro de "${historyData[index].monthName}" del historial?`)) {
+            historyData.splice(index, 1);
+            saveToLocalStorage();
+            renderHistory();
+        }
+    }
+
+    function openNewMonthModal() {
+        const modal = document.getElementById('monthModal');
+        modal.classList.add('show');
+        document.getElementById('dynamic-expenses').innerHTML = '';
+        document.getElementById('input-sueldo').value = formatNumberWithDots(currentMonth.baseSueldo);
+        currentMonth.expenses.forEach(e => addExpenseInputModal(e.name, formatNumberWithDots(e.amount)));
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('monthModal');
+        modal.classList.remove('show');
+    }
+
+    function formatModalInput(input) {
+        const num = parseDotsToNumber(input.value);
+        input.value = formatNumberWithDots(num);
+    }
+
+    function addExpenseInputModal(name = '', amount = '') {
+        const container = document.getElementById('dynamic-expenses');
+        const div = document.createElement('div');
+        div.className = 'dynamic-item';
+        div.innerHTML = `
+            <input type="text" class="exp-name" placeholder="Gasto" value="${name}" style="flex: 2;">
+            <input type="text" class="exp-amount" placeholder="Monto ($)" value="${amount}" oninput="formatModalInput(this)" style="flex: 1.5;">
+            <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()" style="margin: 0; padding: 0 10px; width: auto;">X</button>
+        `;
+        container.appendChild(div);
+    }
+
+    function saveNewMonth() {
+        const monthName = document.getElementById('input-month-name').value.trim();
+        const baseSueldo = parseDotsToNumber(document.getElementById('input-sueldo').value);
+
+        if (!monthName || isNaN(baseSueldo)) {
+            alert('Por favor completa el nombre del mes y el sueldo base.');
+            return;
+        }
+
+        const expNames = document.querySelectorAll('.exp-name');
+        const expAmounts = document.querySelectorAll('.exp-amount');
+        const newExpenses = [];
+
+        expNames.forEach((input, index) => {
+            const name = input.value.trim();
+            const amount = parseDotsToNumber(expAmounts[index].value);
+            if (name) {
+                newExpenses.push({ name, amount: Number(amount), paid: false });
+            }
+        });
+
+        lastMonthBackup = JSON.parse(JSON.stringify(currentMonth));
+
+        const totalExtras = currentMonth.extras.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
+        const totalGastos = currentMonth.expenses.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
+        const totalPagado = currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
+        const percentage = totalGastos > 0 ? Math.round((totalPagado / totalGastos) * 100) : 0;
+        const sobrante = currentMonth.baseSueldo - totalPagado;
+
+        historyData.unshift({
+            monthName: currentMonth.monthName,
+            baseSueldo: Number(currentMonth.baseSueldo),
+            totalExtras: totalExtras,
+            totalGastos: totalGastos,
+            totalPagado: totalPagado,
+            sobrante: sobrante,
+            percentage: percentage
+        });
+
+        currentMonth = {
+            monthName: monthName,
+            baseSueldo: Number(baseSueldo),
+            extras: [],
+            debts: currentMonth.debts.filter(d => !d.paid),
+            pendingPays: currentMonth.pendingPays.filter(p => !p.paid),
+            expenses: newExpenses
+        };
+
+        closeModal();
+        renderCurrentMonth();
+        renderHistory();
+        displayRandomVerse();
+        saveToLocalStorage();
+    }
+
+    function undoLastMonthClose() {
+        if (!lastMonthBackup) {
+            alert("No hay ningún movimiento reciente para deshacer.");
+            return;
+        }
+
+        if (confirm(`¿Deseas restaurar "${lastMonthBackup.monthName}" y eliminarlo del historial?`)) {
+            historyData.shift();
+            currentMonth = JSON.parse(JSON.stringify(lastMonthBackup));
+            lastMonthBackup = null;
+
+            saveToLocalStorage();
+            renderCurrentMonth();
+            renderHistory();
+            alert("Se ha restaurado el mes anterior correctamente con todos sus datos.");
+        }
+    }
+
+    function saveToLocalStorage() {
+        localStorage.setItem('currentMonthData', JSON.stringify(currentMonth));
+        localStorage.setItem('historyData', JSON.stringify(historyData));
+        localStorage.setItem('lastMonthBackup', JSON.stringify(lastMonthBackup));
+    }
+
+    // Inicialización
+    displayRandomVerse();
+    renderCurrentMonth();
+    renderHistory();
+</script>
+
+</body>
+</html>
