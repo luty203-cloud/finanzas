@@ -87,7 +87,6 @@
             border: 1px solid rgba(99, 102, 241, 0.15);
         }
 
-        /* Resumen Principal Glass */
         .summary-card {
             background: var(--glass-inner);
             border: 1px solid var(--card-border);
@@ -134,7 +133,6 @@
             background: var(--primary);
         }
 
-        /* KPIs de Destino del Dinero */
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -191,7 +189,6 @@
             margin-top: 2px;
         }
 
-        /* Barra de Progreso Modernizada */
         .progress-section {
             background: var(--glass-inner);
             border: 1px solid var(--card-border);
@@ -240,7 +237,6 @@
             letter-spacing: -0.01em;
         }
 
-        /* Listas de Ítems */
         .item-list {
             list-style: none;
             padding: 0;
@@ -265,43 +261,6 @@
             border-color: rgba(99, 102, 241, 0.4);
             background: rgba(15, 23, 42, 0.75);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .item.dragging {
-            opacity: 0.3;
-        }
-
-        .drag-handle {
-            cursor: grab;
-            color: #475569;
-            font-size: 1rem;
-            padding: 0 2px;
-            user-select: none;
-            transition: color 0.2s ease;
-        }
-
-        .item:hover .drag-handle {
-            color: var(--text-muted);
-        }
-
-        .order-btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .btn-move {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 0.6rem;
-            padding: 0;
-            color: #64748b;
-            line-height: 1;
-        }
-
-        .btn-move:hover {
-            color: var(--primary);
         }
 
         .item-left {
@@ -403,7 +362,6 @@
             border: 1px dashed rgba(16, 185, 129, 0.3);
         }
 
-        /* Botones Principales */
         .btn {
             display: flex;
             align-items: center;
@@ -420,11 +378,6 @@
             box-sizing: border-box;
             text-decoration: none;
             font-family: inherit;
-            position: relative;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
         }
 
         .btn-primary {
@@ -433,20 +386,10 @@
             box-shadow: 0 4px 15px var(--primary-glow);
         }
 
-        .btn-primary:hover {
-            opacity: 0.95;
-            box-shadow: 0 6px 20px var(--primary-glow);
-        }
-
         .btn-secondary {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
             border: 1px solid var(--card-border);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .btn-whatsapp {
@@ -455,22 +398,12 @@
             box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);
         }
 
-        .btn-whatsapp:hover {
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
-        }
-
         .btn-danger {
             background: rgba(239, 68, 68, 0.15);
             color: #fca5a5;
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
-        .btn-danger:hover {
-            background: var(--danger);
-            color: white;
-        }
-
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -486,10 +419,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
+        .modal.show { display: flex; opacity: 1; }
 
         .modal-content {
             background: #1e293b;
@@ -501,32 +431,10 @@
             max-height: 85vh;
             overflow-y: auto;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            transform: translateY(-20px);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .modal.show .modal-content {
-            transform: translateY(0);
-            animation: modalEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .modal-content h3 {
-            margin-top: 0;
-            font-size: 1.2rem;
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.82rem;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 0.82rem; margin-bottom: 6px; font-weight: 600; color: var(--text-muted); }
         .form-group input {
             width: 100%;
             padding: 10px 12px;
@@ -535,21 +443,9 @@
             border-radius: 10px;
             color: white;
             font-size: 0.9rem;
-            box-sizing: border-box;
         }
 
-        .form-group input:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        .dynamic-item {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
+        .dynamic-item { display: flex; gap: 8px; margin-bottom: 8px; }
         .dynamic-item input {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid var(--card-border);
@@ -558,17 +454,10 @@
             padding: 8px;
         }
 
-        /* Historial */
         .history-section {
             margin-top: 32px;
             border-top: 1px solid var(--card-border);
             padding-top: 24px;
-        }
-
-        .history-section h3 {
-            font-size: 1rem;
-            margin-bottom: 16px;
-            color: var(--text-muted);
         }
 
         .history-card {
@@ -581,34 +470,13 @@
             position: relative;
         }
 
-        .history-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-        }
-
         .history-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 700;
             margin-bottom: 8px;
-            padding-right: 25px;
             font-size: 0.95rem;
-        }
-
-        .btn-delete-history {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            opacity: 0.5;
-        }
-
-        .btn-delete-history:hover {
-            opacity: 1;
         }
     </style>
 </head>
@@ -616,7 +484,7 @@
 
 <div class="container">
     <h2>Proyección Mensual</h2>
-    <p id="bible-verse" class="bible-verse">Cargando reflejo de fe...</p>
+    <p id="bible-verse" class="bible-verse">«Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquezas en gloria en Cristo Jesús.» — Filipenses 4:19</p>
 
     <!-- Resumen General -->
     <div class="summary-card">
@@ -637,7 +505,7 @@
         </div>
     </div>
 
-    <!-- KPIs de Destino del Dinero -->
+    <!-- KPIs -->
     <div class="kpi-grid">
         <div class="kpi-card kpi-warning">
             <div class="kpi-title">Comprometido</div>
@@ -656,7 +524,7 @@
         </div>
     </div>
 
-    <!-- Barra de Progreso -->
+    <!-- Progreso -->
     <div class="progress-section">
         <div class="progress-header">
             <span>Progreso de Pagos</span>
@@ -671,52 +539,45 @@
         </div>
     </div>
 
-    <!-- Ingresos Extra -->
+    <!-- Ingresos Extras -->
     <div class="section-title">💵 Registro Auxiliar de Ingresos Extras</div>
     <ul class="item-list" id="extra-list"></ul>
-    
     <div class="extra-total-box">
         <span>Total Ingresos Extras Registrados:</span>
         <span id="aux-total-extras" style="color: var(--success);">+ $ 0</span>
     </div>
-    
     <button class="btn btn-secondary" onclick="addNewExtraDirect()" style="margin-bottom: 24px;">+ Añadir ingreso extra</button>
 
-    <!-- NUEVO CUADRO: Plata que me deben -->
+    <!-- Plata que me deben -->
     <div class="section-title">🤝 Plata que me deben</div>
     <ul class="item-list" id="debt-list"></ul>
-
     <div class="extra-total-box" style="background: rgba(245, 158, 11, 0.08); border: 1px dashed rgba(245, 158, 11, 0.3);">
         <span>Total Pendiente por Cobrar:</span>
         <span id="aux-total-debts" style="color: var(--warning);">+ $ 0</span>
     </div>
-
     <button class="btn btn-secondary" onclick="addNewDebtDirect()" style="margin-bottom: 24px;">+ Añadir deuda a cobrar</button>
 
-    <!-- NUEVO CUADRO: Cosas para pagar después -->
+    <!-- Cosas para pagar después -->
     <div class="section-title">⏳ Cosas para pagar después</div>
     <ul class="item-list" id="pending-pay-list"></ul>
-
     <div class="extra-total-box" style="background: rgba(99, 102, 241, 0.08); border: 1px dashed rgba(99, 102, 241, 0.3);">
         <span>Total Pendiente de Pago Posterior:</span>
         <span id="aux-total-pending-pay" style="color: #a5b4fc;">$ 0</span>
     </div>
-
     <button class="btn btn-secondary" onclick="addNewPendingPayDirect()" style="margin-bottom: 24px;">+ Añadir cosa para pagar después</button>
 
-    <!-- Lista de Gastos -->
+    <!-- Gastos Mensuales -->
     <div class="section-title">📉 Gastos Mensuales</div>
     <ul class="item-list" id="expense-list"></ul>
     <button class="btn btn-secondary" onclick="addNewExpenseDirect()">+ Añadir nuevo gasto</button>
 
-    <!-- Botones de Acción Principal -->
     <div style="margin-top: 20px;">
         <button class="btn btn-whatsapp" onclick="sendWhatsAppSummary()">📲 Compartir por WhatsApp</button>
         <button class="btn btn-primary" onclick="openNewMonthModal()">Cerrar Mes e Iniciar Nuevo</button>
         <button class="btn btn-secondary" onclick="undoLastMonthClose()" style="margin-top: 8px;">↩ Deshacer Último Cierre de Mes</button>
     </div>
 
-    <!-- Historial de Meses -->
+    <!-- Historial -->
     <div class="history-section">
         <h3>Historial de Meses Anteriores</h3>
         <div id="history-list">
@@ -725,7 +586,7 @@
     </div>
 </div>
 
-<!-- Modal para Registrar Nuevo Mes -->
+<!-- Modal Nuevo Mes -->
 <div class="modal" id="monthModal">
     <div class="modal-content">
         <h3>Iniciar Nuevo Mes</h3>
@@ -733,7 +594,7 @@
         
         <div class="form-group">
             <label for="input-month-name">Nombre del Mes / Período:</label>
-            <input type="text" id="input-month-name" placeholder="Ej: Septiembre 2026">
+            <input type="text" id="input-month-name" placeholder="Ej: Octubre 2026">
         </div>
         <div class="form-group">
             <label for="input-sueldo">Sueldo Base ($):</label>
@@ -744,21 +605,28 @@
         <div id="dynamic-expenses"></div>
         <button type="button" class="btn btn-secondary" onclick="addExpenseInputModal()" style="margin-bottom: 16px; padding: 8px;">+ Agregar Campo Gasto</button>
 
-        <button class="btn class btn-primary" onclick="saveNewMonth()">Guardar e Iniciar</button>
+        <button class="btn btn-primary" onclick="saveNewMonth()">Guardar e Iniciar</button>
         <button class="btn btn-danger" onclick="closeModal()" style="margin-top: 8px;">Cancelar</button>
     </div>
 </div>
 
-<script>
-    const bibleVerses = [
-        "«Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquezas en gloria en Cristo Jesús.» — Filipenses 4:19",
-        "«El alma generosa será prosperada; y el que saciare, él también será saciado.» — Proverbios 11:25",
-        "«Pon asimismo tu delicia en el Señor, y él te concederá las peticiones de tu corazón.» — Salmos 37:4",
-        "«Traed todos los diezmos al alfolí y haya alimento en mi casa; y probadme ahora en esto...» — Malaquías 3:10",
-        "«Porque yo sé los pensamientos que tengo acerca de vosotros, dice el Señor, pensamientos de paz, y no de mal.» — Jeremías 29:11",
-        "«Encomienda al Señor tu camino, y confía en él; y él hará.» — Salmos 37:5",
-        "«Bendito el varón que confía en el Señor, y cuya confianza es el Señor.» — Jeremías 17:7"
-    ];
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBJSQyc2VIGHPGcmqzT4iezaIUKyqCz4eg",
+        authDomain: "mis-finanzas-4237d.firebaseapp.com",
+        databaseURL: "https://mis-finanzas-4237d-default-rtdb.firebaseio.com",
+        projectId: "mis-finanzas-4237d",
+        storageBucket: "mis-finanzas-4237d.firebasestorage.app",
+        messagingSenderId: "120175214134",
+        appId: "1:120175214134:web:0710d5acf212c1aea72297",
+        measurementId: "G-ZG82Y22GGR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
     const initialData = {
         monthName: "Agosto 2026",
@@ -784,9 +652,10 @@
         ]
     };
 
-    let currentMonth = JSON.parse(localStorage.getItem('currentMonthData')) || initialData;
-    let historyData = JSON.parse(localStorage.getItem('historyData')) || [];
-    let lastMonthBackup = JSON.parse(localStorage.getItem('lastMonthBackup')) || null;
+    let localCurrent = localStorage.getItem('currentMonthData');
+    window.currentMonth = localCurrent ? JSON.parse(localCurrent) : initialData;
+    window.historyData = JSON.parse(localStorage.getItem('historyData')) || [];
+    window.lastMonthBackup = JSON.parse(localStorage.getItem('lastMonthBackup')) || null;
 
     function formatNumberWithDots(val) {
         if (val === null || val === undefined || val === '') return '$ 0';
@@ -802,179 +671,111 @@
     }
 
     function sanitizeCurrentMonth() {
-        if (currentMonth.sueldo !== undefined && currentMonth.baseSueldo === undefined) {
-            currentMonth.baseSueldo = Number(currentMonth.sueldo) || 0;
+        if (window.currentMonth.sueldo !== undefined && window.currentMonth.baseSueldo === undefined) {
+            window.currentMonth.baseSueldo = Number(window.currentMonth.sueldo) || 0;
         }
-        currentMonth.baseSueldo = Number(currentMonth.baseSueldo) || 0;
-        if (!Array.isArray(currentMonth.extras)) currentMonth.extras = [];
-        if (!Array.isArray(currentMonth.debts)) currentMonth.debts = [];
-        if (!Array.isArray(currentMonth.pendingPays)) currentMonth.pendingPays = [];
-        if (!Array.isArray(currentMonth.expenses)) currentMonth.expenses = [];
-        
-        currentMonth.extras.forEach(item => item.amount = Number(item.amount) || 0);
-        currentMonth.debts.forEach(item => item.amount = Number(item.amount) || 0);
-        currentMonth.pendingPays.forEach(item => item.amount = Number(item.amount) || 0);
-        currentMonth.expenses.forEach(item => item.amount = Number(item.amount) || 0);
-    }
-
-    function displayRandomVerse() {
-        const randomIndex = Math.floor(Math.random() * bibleVerses.length);
-        document.getElementById('bible-verse').innerText = bibleVerses[randomIndex];
+        window.currentMonth.baseSueldo = Number(window.currentMonth.baseSueldo) || 0;
+        if (!Array.isArray(window.currentMonth.extras)) window.currentMonth.extras = [];
+        if (!Array.isArray(window.currentMonth.debts)) window.currentMonth.debts = [];
+        if (!Array.isArray(window.currentMonth.pendingPays)) window.currentMonth.pendingPays = [];
+        if (!Array.isArray(window.currentMonth.expenses)) window.currentMonth.expenses = [];
     }
 
     function formatCurrency(amount) {
-        return '$ ' + Number(amount).toLocaleString('es-AR');
+        return '$ ' + Number(amount || 0).toLocaleString('es-AR');
     }
 
-    function renderCurrentMonth() {
+    window.renderCurrentMonth = function() {
         sanitizeCurrentMonth();
 
-        // Render Extras
         const extraContainer = document.getElementById('extra-list');
         extraContainer.innerHTML = '';
-        currentMonth.extras.forEach((item, index) => {
+        window.currentMonth.extras.forEach((item, index) => {
             const li = document.createElement('li');
             li.className = 'item';
             li.innerHTML = `
                 <div class="item-left">
                     <span style="font-size: 0.9rem;">💵</span>
-                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateExtraName(${index}, this.value)" placeholder="Ej: Guardia extra">
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateExtraName(${index}, this.value)">
                 </div>
                 <div class="item-right">
-                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateExtraAmount(${index}, this)" placeholder="$ 0">
-                    <button class="btn-delete-item" onclick="deleteExtraDirect(${index})" title="Eliminar ingreso">✕</button>
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateExtraAmount(${index}, this)">
+                    <button class="btn-delete-item" onclick="deleteExtraDirect(${index})">✕</button>
                 </div>
             `;
             extraContainer.appendChild(li);
         });
 
-        // Render Deudas (Plata que me deben)
         const debtContainer = document.getElementById('debt-list');
         debtContainer.innerHTML = '';
-        currentMonth.debts.forEach((item, index) => {
+        window.currentMonth.debts.forEach((item, index) => {
             const li = document.createElement('li');
             li.className = `item ${item.paid ? 'paid' : ''}`;
             li.innerHTML = `
                 <div class="item-left">
-                    <input type="checkbox" id="debt-${index}" ${item.paid ? 'checked' : ''} onchange="toggleDebt(${index})" title="Marcar como cobrado / tachar">
-                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateDebtName(${index}, this.value)" placeholder="¿Quién te debe?">
+                    <input type="checkbox" id="debt-${index}" ${item.paid ? 'checked' : ''} onchange="toggleDebt(${index})">
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateDebtName(${index}, this.value)">
                 </div>
                 <div class="item-right">
-                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateDebtAmount(${index}, this)" placeholder="$ 0">
-                    <button class="btn-delete-item" onclick="deleteDebtDirect(${index})" title="Eliminar registro">✕</button>
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateDebtAmount(${index}, this)">
+                    <button class="btn-delete-item" onclick="deleteDebtDirect(${index})">✕</button>
                 </div>
             `;
             debtContainer.appendChild(li);
         });
 
-        // Render Cosas para pagar después
         const pendingPayContainer = document.getElementById('pending-pay-list');
         pendingPayContainer.innerHTML = '';
-        currentMonth.pendingPays.forEach((item, index) => {
+        window.currentMonth.pendingPays.forEach((item, index) => {
             const li = document.createElement('li');
             li.className = `item ${item.paid ? 'paid' : ''}`;
             li.innerHTML = `
                 <div class="item-left">
-                    <input type="checkbox" id="pendingPay-${index}" ${item.paid ? 'checked' : ''} onchange="togglePendingPay(${index})" title="Marcar como pagado / tachar">
-                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updatePendingPayName(${index}, this.value)" placeholder="¿Qué debes pagar después?">
+                    <input type="checkbox" id="pendingPay-${index}" ${item.paid ? 'checked' : ''} onchange="togglePendingPay(${index})">
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updatePendingPayName(${index}, this.value)">
                 </div>
                 <div class="item-right">
-                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updatePendingPayAmount(${index}, this)" placeholder="$ 0">
-                    <button class="btn-delete-item" onclick="deletePendingPayDirect(${index})" title="Eliminar registro">✕</button>
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updatePendingPayAmount(${index}, this)">
+                    <button class="btn-delete-item" onclick="deletePendingPayDirect(${index})">✕</button>
                 </div>
             `;
             pendingPayContainer.appendChild(li);
         });
 
-        // Render Gastos
         const listContainer = document.getElementById('expense-list');
         listContainer.innerHTML = '';
-        currentMonth.expenses.forEach((item, index) => {
+        window.currentMonth.expenses.forEach((item, index) => {
             const li = document.createElement('li');
             li.className = `item ${item.paid ? 'paid' : ''}`;
-            li.draggable = true;
-            li.dataset.index = index;
-
             li.innerHTML = `
                 <div class="item-left">
-                    <span class="drag-handle" title="Arrastrar para mover">⋮⋮</span>
-                    <div class="order-btn-container">
-                        <button class="btn-move" onclick="moveExpense(${index}, -1)" title="Mover arriba">▲</button>
-                        <button class="btn-move" onclick="moveExpense(${index}, 1)" title="Mover abajo">▼</button>
-                    </div>
                     <input type="checkbox" id="item-${index}" ${item.paid ? 'checked' : ''} onchange="toggleItem(${index})">
-                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateItemName(${index}, this.value)" placeholder="Nombre del gasto">
+                    <input type="text" class="input-inline-name" value="${item.name}" oninput="updateItemName(${index}, this.value)">
                 </div>
                 <div class="item-right">
-                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateItemAmount(${index}, this)" placeholder="$ 0">
-                    <button class="btn-delete-item" onclick="deleteExpenseDirect(${index})" title="Eliminar gasto">✕</button>
+                    <input type="text" class="input-inline-amount" value="${formatNumberWithDots(item.amount)}" oninput="updateItemAmount(${index}, this)">
+                    <button class="btn-delete-item" onclick="deleteExpenseDirect(${index})">✕</button>
                 </div>
             `;
-
-            li.addEventListener('dragstart', handleDragStart);
-            li.addEventListener('dragover', handleDragOver);
-            li.addEventListener('drop', handleDrop);
-            li.addEventListener('dragend', handleDragEnd);
-
             listContainer.appendChild(li);
         });
 
         calculateTotals();
-    }
-
-    let draggedIndex = null;
-
-    function handleDragStart(e) {
-        draggedIndex = Number(this.dataset.index);
-        this.classList.add('dragging');
-        e.dataTransfer.effectAllowed = 'move';
-    }
-
-    function handleDragOver(e) {
-        if (e.preventDefault) e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-        return false;
-    }
-
-    function handleDrop(e) {
-        e.stopPropagation();
-        const targetIndex = Number(this.dataset.index);
-        if (draggedIndex !== null && draggedIndex !== targetIndex) {
-            const movedItem = currentMonth.expenses.splice(draggedIndex, 1)[0];
-            currentMonth.expenses.splice(targetIndex, 0, movedItem);
-            renderCurrentMonth();
-        }
-        return false;
-    }
-
-    function handleDragEnd() {
-        this.classList.remove('dragging');
-        draggedIndex = null;
-    }
-
-    function moveExpense(index, direction) {
-        const newIndex = index + direction;
-        if (newIndex >= 0 && newIndex < currentMonth.expenses.length) {
-            const temp = currentMonth.expenses[index];
-            currentMonth.expenses[index] = currentMonth.expenses[newIndex];
-            currentMonth.expenses[newIndex] = temp;
-            renderCurrentMonth();
-        }
-    }
+    };
 
     function calculateTotals() {
-        const totalExtras = currentMonth.extras.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
-        const totalDebts = currentMonth.debts.reduce((acc, curr) => !curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
-        const totalPendingPay = currentMonth.pendingPays.reduce((acc, curr) => !curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
+        const totalExtras = window.currentMonth.extras.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+        const totalDebts = window.currentMonth.debts.reduce((acc, curr) => !curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
+        const totalPendingPay = window.currentMonth.pendingPays.reduce((acc, curr) => !curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
 
-        const totalGastos = currentMonth.expenses.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
-        const totalPagado = currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
+        const totalGastos = window.currentMonth.expenses.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+        const totalPagado = window.currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + (Number(curr.amount) || 0) : acc, 0);
         
-        const saldoDisponible = currentMonth.baseSueldo - totalGastos;
+        const saldoDisponible = window.currentMonth.baseSueldo - totalGastos;
         const restaPagar = totalGastos - totalPagado;
         const porcentaje = totalGastos > 0 ? Math.round((totalPagado / totalGastos) * 100) : 0;
 
-        document.getElementById('display-sueldo').innerText = formatCurrency(currentMonth.baseSueldo);
+        document.getElementById('display-sueldo').innerText = formatCurrency(window.currentMonth.baseSueldo);
         document.getElementById('display-gastos').innerText = formatCurrency(totalGastos);
         document.getElementById('display-saldo').innerText = formatCurrency(saldoDisponible) + ' 💰';
 
@@ -987,11 +788,11 @@
         document.getElementById('paid-amount').innerText = formatCurrency(totalPagado);
         document.getElementById('remaining-amount').innerText = formatCurrency(restaPagar);
 
-        const sueldoPct = currentMonth.baseSueldo > 0 ? Math.round((totalGastos / currentMonth.baseSueldo) * 100) : 0;
+        const sueldoPct = window.currentMonth.baseSueldo > 0 ? Math.round((totalGastos / window.currentMonth.baseSueldo) * 100) : 0;
         document.getElementById('kpi-sueldo-pct').innerText = sueldoPct + '%';
 
         let topExpense = { name: '-', amount: 0 };
-        currentMonth.expenses.forEach(e => {
+        window.currentMonth.expenses.forEach(e => {
             if ((Number(e.amount) || 0) > topExpense.amount) {
                 topExpense = { name: e.name, amount: Number(e.amount) || 0 };
             }
@@ -1001,351 +802,210 @@
 
         const extrasCoverage = totalGastos > 0 ? Math.round((totalExtras / totalGastos) * 100) : 0;
         document.getElementById('kpi-extras-coverage').innerText = extrasCoverage + '%';
-
-        saveToLocalStorage();
     }
 
-    function addNewExtraDirect() {
-        currentMonth.extras.push({ name: "Nuevo ingreso extra", amount: 0 });
-        renderCurrentMonth();
-    }
+    window.saveToLocalStorage = function() {
+        localStorage.setItem('currentMonthData', JSON.stringify(window.currentMonth));
+        localStorage.setItem('historyData', JSON.stringify(window.historyData));
+        localStorage.setItem('lastMonthBackup', JSON.stringify(window.lastMonthBackup));
 
-    function updateExtraName(index, newName) {
-        currentMonth.extras[index].name = newName;
-        saveToLocalStorage();
-    }
+        set(ref(db, 'finanzas'), {
+            currentMonthData: window.currentMonth,
+            historyData: window.historyData,
+            lastMonthBackup: window.lastMonthBackup
+        });
+    };
 
-    function updateExtraAmount(index, inputElement) {
+    window.addNewExtraDirect = function() {
+        window.currentMonth.extras.push({ name: "Nuevo ingreso extra", amount: 0 });
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
+
+    window.updateExtraName = function(index, newName) {
+        window.currentMonth.extras[index].name = newName;
+        window.saveToLocalStorage();
+    };
+
+    window.updateExtraAmount = function(index, inputElement) {
         const rawValue = parseDotsToNumber(inputElement.value);
         inputElement.value = formatNumberWithDots(rawValue);
-        currentMonth.extras[index].amount = rawValue;
+        window.currentMonth.extras[index].amount = rawValue;
         calculateTotals();
-    }
+        window.saveToLocalStorage();
+    };
 
-    function deleteExtraDirect(index) {
-        currentMonth.extras.splice(index, 1);
-        renderCurrentMonth();
-    }
+    window.deleteExtraDirect = function(index) {
+        window.currentMonth.extras.splice(index, 1);
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function addNewDebtDirect() {
-        currentMonth.debts.push({ name: "Nueva deuda a cobrar", amount: 0, paid: false });
-        renderCurrentMonth();
-    }
+    window.addNewDebtDirect = function() {
+        window.currentMonth.debts.push({ name: "Nueva deuda a cobrar", amount: 0, paid: false });
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function updateDebtName(index, newName) {
-        currentMonth.debts[index].name = newName;
-        saveToLocalStorage();
-    }
+    window.updateDebtName = function(index, newName) {
+        window.currentMonth.debts[index].name = newName;
+        window.saveToLocalStorage();
+    };
 
-    function updateDebtAmount(index, inputElement) {
+    window.updateDebtAmount = function(index, inputElement) {
         const rawValue = parseDotsToNumber(inputElement.value);
         inputElement.value = formatNumberWithDots(rawValue);
-        currentMonth.debts[index].amount = rawValue;
+        window.currentMonth.debts[index].amount = rawValue;
         calculateTotals();
-    }
+        window.saveToLocalStorage();
+    };
 
-    function toggleDebt(index) {
-        currentMonth.debts[index].paid = !currentMonth.debts[index].paid;
-        const debtElement = document.getElementById(`debt-${index}`).closest('.item');
-        if (currentMonth.debts[index].paid) {
-            debtElement.classList.add('paid');
-        } else {
-            debtElement.classList.remove('paid');
-        }
-        calculateTotals();
-    }
+    window.toggleDebt = function(index) {
+        window.currentMonth.debts[index].paid = !window.currentMonth.debts[index].paid;
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function deleteDebtDirect(index) {
-        currentMonth.debts.splice(index, 1);
-        renderCurrentMonth();
-    }
+    window.deleteDebtDirect = function(index) {
+        window.currentMonth.debts.splice(index, 1);
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function addNewPendingPayDirect() {
-        currentMonth.pendingPays.push({ name: "Nueva cosa para pagar", amount: 0, paid: false });
-        renderCurrentMonth();
-    }
+    window.addNewPendingPayDirect = function() {
+        window.currentMonth.pendingPays.push({ name: "Nueva cosa para pagar", amount: 0, paid: false });
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function updatePendingPayName(index, newName) {
-        currentMonth.pendingPays[index].name = newName;
-        saveToLocalStorage();
-    }
+    window.updatePendingPayName = function(index, newName) {
+        window.currentMonth.pendingPays[index].name = newName;
+        window.saveToLocalStorage();
+    };
 
-    function updatePendingPayAmount(index, inputElement) {
+    window.updatePendingPayAmount = function(index, inputElement) {
         const rawValue = parseDotsToNumber(inputElement.value);
         inputElement.value = formatNumberWithDots(rawValue);
-        currentMonth.pendingPays[index].amount = rawValue;
+        window.currentMonth.pendingPays[index].amount = rawValue;
         calculateTotals();
-    }
+        window.saveToLocalStorage();
+    };
 
-    function togglePendingPay(index) {
-        currentMonth.pendingPays[index].paid = !currentMonth.pendingPays[index].paid;
-        const pendingPayElement = document.getElementById(`pendingPay-${index}`).closest('.item');
-        if (currentMonth.pendingPays[index].paid) {
-            pendingPayElement.classList.add('paid');
-        } else {
-            pendingPayElement.classList.remove('paid');
-        }
-        calculateTotals();
-    }
+    window.togglePendingPay = function(index) {
+        window.currentMonth.pendingPays[index].paid = !window.currentMonth.pendingPays[index].paid;
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function deletePendingPayDirect(index) {
-        currentMonth.pendingPays.splice(index, 1);
-        renderCurrentMonth();
-    }
+    window.deletePendingPayDirect = function(index) {
+        window.currentMonth.pendingPays.splice(index, 1);
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function updateItemName(index, newName) {
-        currentMonth.expenses[index].name = newName;
-        saveToLocalStorage();
-    }
+    window.updateItemName = function(index, newName) {
+        window.currentMonth.expenses[index].name = newName;
+        window.saveToLocalStorage();
+    };
 
-    function updateItemAmount(index, inputElement) {
+    window.updateItemAmount = function(index, inputElement) {
         const rawValue = parseDotsToNumber(inputElement.value);
         inputElement.value = formatNumberWithDots(rawValue);
-        currentMonth.expenses[index].amount = rawValue;
+        window.currentMonth.expenses[index].amount = rawValue;
         calculateTotals();
-    }
+        window.saveToLocalStorage();
+    };
 
-    function editSueldoDirect() {
-        const currentVal = formatNumberWithDots(currentMonth.baseSueldo);
+    window.editSueldoDirect = function() {
+        const currentVal = formatNumberWithDots(window.currentMonth.baseSueldo);
         const newValStr = prompt("Ingresa el sueldo base inicial ($):", currentVal);
-        
         if (newValStr !== null) {
             const newVal = parseDotsToNumber(newValStr);
-            currentMonth.baseSueldo = newVal;
+            window.currentMonth.baseSueldo = newVal;
             calculateTotals();
+            window.saveToLocalStorage();
         }
-    }
+    };
 
-    function toggleItem(index) {
-        currentMonth.expenses[index].paid = !currentMonth.expenses[index].paid;
-        const itemElement = document.getElementById(`item-${index}`).closest('.item');
-        if (currentMonth.expenses[index].paid) {
-            itemElement.classList.add('paid');
-        } else {
-            itemElement.classList.remove('paid');
-        }
-        calculateTotals();
-    }
+    window.toggleItem = function(index) {
+        window.currentMonth.expenses[index].paid = !window.currentMonth.expenses[index].paid;
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function addNewExpenseDirect() {
-        currentMonth.expenses.push({ name: "Nuevo Gasto", amount: 0, paid: false });
-        renderCurrentMonth();
-    }
+    window.addNewExpenseDirect = function() {
+        window.currentMonth.expenses.push({ name: "Nuevo Gasto", amount: 0, paid: false });
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function deleteExpenseDirect(index) {
-        currentMonth.expenses.splice(index, 1);
-        renderCurrentMonth();
-    }
+    window.deleteExpenseDirect = function(index) {
+        window.currentMonth.expenses.splice(index, 1);
+        window.renderCurrentMonth();
+        window.saveToLocalStorage();
+    };
 
-    function sendWhatsAppSummary() {
-        const totalExtras = currentMonth.extras.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
-        const totalDebts = currentMonth.debts.reduce((acc, curr) => !curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
-        const totalPendingPay = currentMonth.pendingPays.reduce((acc, curr) => !curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
-        const totalGastos = currentMonth.expenses.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
-        const totalPagado = currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
-        const restaPagar = totalGastos - totalPagado;
-        const saldoLibre = currentMonth.baseSueldo - totalGastos;
+    window.sendWhatsAppSummary = function() {
+        const totalGastos = window.currentMonth.expenses.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
+        const totalPagado = window.currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + Number(curr.amount || 0), 0);
+        const saldoLibre = window.currentMonth.baseSueldo - totalGastos;
         const porcentaje = totalGastos > 0 ? Math.round((totalPagado / totalGastos) * 100) : 0;
 
-        let message = `📊 *PROYECCIÓN MENSUAL - ${(currentMonth.monthName || 'MES').toUpperCase()}*\n\n`;
-        message += `💵 *Sueldo Base:* ${formatCurrency(currentMonth.baseSueldo)}\n`;
+        let message = `📊 *PROYECCIÓN MENSUAL*\n\n`;
+        message += `💵 *Sueldo Base:* ${formatCurrency(window.currentMonth.baseSueldo)}\n`;
         message += `📉 *Gastos Totales:* ${formatCurrency(totalGastos)}\n`;
-        message += `💰 *Saldo Libre:* ${formatCurrency(saldoLibre)}\n\n`;
+        message += `💰 *Saldo Libre:* ${formatCurrency(saldoLibre)}\n`;
         message += `📈 *Progreso de Pagos:* ${porcentaje}%\n`;
-        message += `✅ *Pagado:* ${formatCurrency(totalPagado)}\n`;
-        message += `⏳ *Resta Pagar:* ${formatCurrency(restaPagar)}\n\n`;
 
-        if (currentMonth.extras.length > 0) {
-            message += `*Registro Auxiliar de Ingresos Extras (${formatCurrency(totalExtras)}):*\n`;
-            currentMonth.extras.forEach(e => {
-                message += `💵 ${e.name}: ${formatCurrency(e.amount)}\n`;
-            });
-            message += `\n`;
-        }
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`, '_blank');
+    };
 
-        if (currentMonth.debts.length > 0) {
-            message += `*Plata que me deben (Pendiente: ${formatCurrency(totalDebts)}):*\n`;
-            currentMonth.debts.forEach(d => {
-                const estado = d.paid ? "✅ (Cobrado)" : "⏳ (Pendiente)";
-                message += `${estado} ${d.name}: ${formatCurrency(d.amount)}\n`;
-            });
-            message += `\n`;
-        }
-
-        if (currentMonth.pendingPays.length > 0) {
-            message += `*Cosas para pagar después (Pendiente: ${formatCurrency(totalPendingPay)}):*\n`;
-            currentMonth.pendingPays.forEach(p => {
-                const estado = p.paid ? "✅ (Pagado)" : "⏳ (Pendiente)";
-                message += `${estado} ${p.name}: ${formatCurrency(p.amount)}\n`;
-            });
-            message += `\n`;
-        }
-
-        message += `*Detalle de Gastos:*\n`;
-        currentMonth.expenses.forEach(e => {
-            const estado = e.paid ? "✅" : "❌";
-            message += `${estado} ${e.name}: ${formatCurrency(e.amount)}\n`;
-        });
-
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
-    }
-
-    function renderHistory() {
+    window.renderHistory = function() {
         const historyContainer = document.getElementById('history-list');
-        if (historyData.length === 0) {
+        if (window.historyData.length === 0) {
             historyContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Sin historial registrado aún.</p>';
             return;
         }
 
         historyContainer.innerHTML = '';
-        historyData.forEach((item, index) => {
+        window.historyData.forEach((item, index) => {
             const div = document.createElement('div');
             div.className = 'history-card';
-            const baseSueldoVal = item.baseSueldo || item.sueldo || 0;
-            const sobranteVal = baseSueldoVal - (item.totalPagado || item.totalGastos);
-
             div.innerHTML = `
-                <button class="btn-delete-history" onclick="deleteHistoryItem(${index})" title="Eliminar registro del historial">🗑️</button>
                 <div class="history-header">
                     <span>${item.monthName}</span>
                     <span style="color: var(--success);">${item.percentage}% pagado</span>
                 </div>
-                <div style="margin-bottom: 4px; color: var(--text-muted);">
-                    Sueldo Base: <strong style="color: white;">${formatCurrency(baseSueldoVal)}</strong> | Gastos: <strong style="color: white;">${formatCurrency(item.totalGastos)}</strong>
-                </div>
-                <div style="margin-bottom: 6px; color: var(--text-muted);">
-                    Ingresos Extras Auxiliares: <strong style="color: var(--success);">+ ${formatCurrency(item.totalExtras || 0)}</strong>
-                </div>
-                <div style="border-top: 1px dashed var(--card-border); padding-top: 6px; color: var(--success); font-weight: 600;">
-                    Sobrante Sueldo Base: <span>${formatCurrency(sobranteVal)} 💰</span>
+                <div style="color: var(--text-muted);">
+                    Sueldo Base: <strong style="color: white;">${formatCurrency(item.baseSueldo)}</strong> | Gastos: <strong style="color: white;">${formatCurrency(item.totalGastos)}</strong>
                 </div>
             `;
             historyContainer.appendChild(div);
         });
-    }
+    };
 
-    function deleteHistoryItem(index) {
-        if (confirm(`¿Deseas eliminar el registro de "${historyData[index].monthName}" del historial?`)) {
-            historyData.splice(index, 1);
-            saveToLocalStorage();
-            renderHistory();
+    // Sincronización continua con Firebase
+    onValue(ref(db, 'finanzas'), (snapshot) => {
+        const data = snapshot.val();
+        if (data && data.currentMonthData) {
+            window.currentMonth = data.currentMonthData;
+            if (data.historyData) window.historyData = data.historyData;
+            if (data.lastMonthBackup) window.lastMonthBackup = data.lastMonthBackup;
+            
+            localStorage.setItem('currentMonthData', JSON.stringify(window.currentMonth));
+            localStorage.setItem('historyData', JSON.stringify(window.historyData));
+            
+            window.renderCurrentMonth();
+            window.renderHistory();
+        } else {
+            window.renderCurrentMonth();
+            window.renderHistory();
+            window.saveToLocalStorage();
         }
-    }
+    });
 
-    function openNewMonthModal() {
-        const modal = document.getElementById('monthModal');
-        modal.classList.add('show');
-        document.getElementById('dynamic-expenses').innerHTML = '';
-        document.getElementById('input-sueldo').value = formatNumberWithDots(currentMonth.baseSueldo);
-        currentMonth.expenses.forEach(e => addExpenseInputModal(e.name, formatNumberWithDots(e.amount)));
-    }
-
-    function closeModal() {
-        const modal = document.getElementById('monthModal');
-        modal.classList.remove('show');
-    }
-
-    function formatModalInput(input) {
-        const num = parseDotsToNumber(input.value);
-        input.value = formatNumberWithDots(num);
-    }
-
-    function addExpenseInputModal(name = '', amount = '') {
-        const container = document.getElementById('dynamic-expenses');
-        const div = document.createElement('div');
-        div.className = 'dynamic-item';
-        div.innerHTML = `
-            <input type="text" class="exp-name" placeholder="Gasto" value="${name}" style="flex: 2;">
-            <input type="text" class="exp-amount" placeholder="Monto ($)" value="${amount}" oninput="formatModalInput(this)" style="flex: 1.5;">
-            <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()" style="margin: 0; padding: 0 10px; width: auto;">X</button>
-        `;
-        container.appendChild(div);
-    }
-
-    function saveNewMonth() {
-        const monthName = document.getElementById('input-month-name').value.trim();
-        const baseSueldo = parseDotsToNumber(document.getElementById('input-sueldo').value);
-
-        if (!monthName || isNaN(baseSueldo)) {
-            alert('Por favor completa el nombre del mes y el sueldo base.');
-            return;
-        }
-
-        const expNames = document.querySelectorAll('.exp-name');
-        const expAmounts = document.querySelectorAll('.exp-amount');
-        const newExpenses = [];
-
-        expNames.forEach((input, index) => {
-            const name = input.value.trim();
-            const amount = parseDotsToNumber(expAmounts[index].value);
-            if (name) {
-                newExpenses.push({ name, amount: Number(amount), paid: false });
-            }
-        });
-
-        lastMonthBackup = JSON.parse(JSON.stringify(currentMonth));
-
-        const totalExtras = currentMonth.extras.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
-        const totalGastos = currentMonth.expenses.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
-        const totalPagado = currentMonth.expenses.reduce((acc, curr) => curr.paid ? acc + Number(curr.amount || 0) : acc, 0);
-        const percentage = totalGastos > 0 ? Math.round((totalPagado / totalGastos) * 100) : 0;
-        const sobrante = currentMonth.baseSueldo - totalPagado;
-
-        historyData.unshift({
-            monthName: currentMonth.monthName,
-            baseSueldo: Number(currentMonth.baseSueldo),
-            totalExtras: totalExtras,
-            totalGastos: totalGastos,
-            totalPagado: totalPagado,
-            sobrante: sobrante,
-            percentage: percentage
-        });
-
-        currentMonth = {
-            monthName: monthName,
-            baseSueldo: Number(baseSueldo),
-            extras: [],
-            debts: currentMonth.debts.filter(d => !d.paid),
-            pendingPays: currentMonth.pendingPays.filter(p => !p.paid),
-            expenses: newExpenses
-        };
-
-        closeModal();
-        renderCurrentMonth();
-        renderHistory();
-        displayRandomVerse();
-        saveToLocalStorage();
-    }
-
-    function undoLastMonthClose() {
-        if (!lastMonthBackup) {
-            alert("No hay ningún movimiento reciente para deshacer.");
-            return;
-        }
-
-        if (confirm(`¿Deseas restaurar "${lastMonthBackup.monthName}" y eliminarlo del historial?`)) {
-            historyData.shift();
-            currentMonth = JSON.parse(JSON.stringify(lastMonthBackup));
-            lastMonthBackup = null;
-
-            saveToLocalStorage();
-            renderCurrentMonth();
-            renderHistory();
-            alert("Se ha restaurado el mes anterior correctamente con todos sus datos.");
-        }
-    }
-
-    function saveToLocalStorage() {
-        localStorage.setItem('currentMonthData', JSON.stringify(currentMonth));
-        localStorage.setItem('historyData', JSON.stringify(historyData));
-        localStorage.setItem('lastMonthBackup', JSON.stringify(lastMonthBackup));
-    }
-
-    // Inicialización
-    displayRandomVerse();
-    renderCurrentMonth();
-    renderHistory();
+    window.renderCurrentMonth();
+    window.renderHistory();
 </script>
 
 </body>
